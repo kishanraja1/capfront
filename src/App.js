@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Add from './components/Add'
 
 const App = () => {
 
@@ -16,6 +17,14 @@ const App = () => {
     .catch((error) => console.error(error))
   }
 
+  const handleCreate = (newStock) => {
+    axios.post('https://salty-oasis-93120.herokuapp.com/api/stocks', newStock)
+    .then((response)=>{
+      console.log(response)
+      getStocks()
+    })
+  }
+
 
   useEffect(() => {
     getStocks()
@@ -24,7 +33,8 @@ const App = () => {
 
   return (
     <>
-    <h1>Hello</h1>
+    <h1>SeekingBeta</h1>
+    <Add handleCreate={handleCreate}/>
 
     <div className="stocks">
 

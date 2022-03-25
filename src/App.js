@@ -3,6 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Add from './components/Add'
+import Edit from './components/Edit'
 
 const App = () => {
 
@@ -34,6 +35,15 @@ const App = () => {
     })
   }
 
+  const handleUpdate = (editStock) => {
+    console.log(editStock)
+    axios
+      .put('https://salty-oasis-93120.herokuapp.com/api/stocks/' + editStock.id, editStock)
+      .then((response) => {
+        getStocks()
+      })
+  }
+
 
   useEffect(() => {
     getStocks()
@@ -52,6 +62,7 @@ const App = () => {
           <div className="indStock" key={stock.id}>
             <h4>{stock.headline}</h4>
             <h5>company: {stock.name}</h5>
+            <Edit handleUpdate={handleUpdate} id={stock.id}/>
             <button onClick={handleDelete} value={stock.id}>X</button>
           </div>
         )

@@ -12,9 +12,9 @@ const App = () => {
     axios.get('https://salty-oasis-93120.herokuapp.com/api/stocks')
     .then(
       (response) => setStocks(response.data),
-      (err) => console.error(err)
+      (err) => console.error(err.response.data)
     )
-    .catch((error) => console.error(error))
+    .catch((error) => console.error(error.response.data))
   }
 
   const handleCreate = (newStock) => {

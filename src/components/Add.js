@@ -13,6 +13,7 @@ const Add = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     props.handleCreate(stock)
+    console.log(stock);
   }
 
   return(
@@ -28,7 +29,7 @@ const Add = (props) => {
         <input type="text" name="ticker" onChange={handleChange}/>
         <br />
         <label htmlFor="price">Stock Price: </label>
-        <input type="number" name="price" onChange={handleChange}/>
+        <input type="number" step="0.01" name="price" onChange={handleChange}/>
         <br />
         <label htmlFor="industry">Industry: </label>
         <input type="text" name="industry" onChange={handleChange}/>

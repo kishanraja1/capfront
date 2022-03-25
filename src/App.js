@@ -26,6 +26,15 @@ const App = () => {
   }
 
 
+  const handleDelete = (event) => {
+    axios
+    .delete('https://salty-oasis-93120.herokuapp.com/api/stocks/' + event.target.value)
+    .then((response) => {
+      getStocks()
+    })
+  }
+
+
   useEffect(() => {
     getStocks()
   },[])
@@ -43,6 +52,7 @@ const App = () => {
           <div className="indStock" key={stock.id}>
             <h4>{stock.headline}</h4>
             <h5>company: {stock.name}</h5>
+            <button onClick={handleDelete} value={stock.id}>X</button>
           </div>
         )
       })}

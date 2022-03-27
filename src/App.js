@@ -45,6 +45,18 @@ const App = () => {
   }
 
 
+  const stocksMap = stocks.map((stock) => {
+    return(
+    <div className="stocks">
+            <h4>{stock.headline}</h4>
+            <h5>company: {stock.name}</h5>
+            <Edit handleUpdate={handleUpdate} id={stock.id}/>
+            <button onClick={handleDelete} value={stock.id}>X</button>
+      </div>
+    )
+  })
+
+
   useEffect(() => {
     getStocks()
   },[])
@@ -54,20 +66,9 @@ const App = () => {
     <>
     <h1>SeekingBeta</h1>
     <Add handleCreate={handleCreate}/>
-
-    <div className="stocks">
-
-      {stocks.map((stock) => {
-        return (
-          <div className="indStock" key={stock.id}>
-            <h4>{stock.headline}</h4>
-            <h5>company: {stock.name}</h5>
-            <Edit handleUpdate={handleUpdate} id={stock.id}/>
-            <button onClick={handleDelete} value={stock.id}>X</button>
-          </div>
-        )
-      })}
-      </div>
+    <div>
+      {stocksMap}
+    </div>
     </>
   )
 }

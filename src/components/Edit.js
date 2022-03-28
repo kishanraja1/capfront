@@ -13,7 +13,6 @@ const Edit = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(stock.name)
     props.handleUpdate(stock)
   }
 

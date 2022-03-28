@@ -58,9 +58,10 @@ const App = () => {
   }
 
   const handleUpdate = (editStock) => {
-    console.log(editStock)
+    console.log(editStock.id)
+    console.log('https://salty-oasis-93120.herokuapp.com/api/stocks/' + editStock.id)
     axios
-      .put('https://salty-oasis-93120.herokuapp.com/api/stocks/' + editStock.id, editStock)
+    .put('https://salty-oasis-93120.herokuapp.com/api/stocks/' + editStock.id, editStock)
       .then((response) => {
         getStocks()
       })
@@ -69,7 +70,7 @@ const App = () => {
 
   const stocksMap = stocks.map((stock) => {
     return(
-    <div className="stocks">
+    <div className="stocks" key={stock.id}>
     <div>
   <Button onClick={handleOpen}>{stock.headline}</Button>
   <Modal
@@ -100,7 +101,7 @@ const App = () => {
     </Box>
   </Modal>
 </div>
-            <Edit handleUpdate={handleUpdate} id={stock.id}/>
+            <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
             <button onClick={handleDelete} value={stock.id}>X</button>
       </div>
     )

@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 const Edit = (props) => {
 
-  let emptyStock = { headline:'', name:'', ticker:'', price:'', industry:'', opinion:''}
+  let emptyStock = { id: props.id, headline:'', name:'', ticker:'', price:'', industry:'', opinion:''}
   const [stock, setStock] = useState(emptyStock)
 
 
@@ -13,6 +13,7 @@ const Edit = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(stock.name)
     props.handleUpdate(stock)
   }
 

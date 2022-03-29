@@ -78,42 +78,7 @@ const App = () => {
     console.log(query)
   }
 
-  // const getIndexData = () => {
-  //   axios.get('https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US', {
-  //     headers:{
-  //     'accept: application/json';
-  //     'X-API-KEY: KvbyoQxWLt7KO5AkAcGZr725Nyyy5NEH8fjMLCgk'
-  //   }
-  //   })
-  //   .then(
-  //   (response) => console.log(response.data[0]),
-  //   (err) => console.error(err.response.data)
-  // )
-  // .catch((error) => console.error(error.message.data))
-  // }
 
-  // const getIndexData = () => {
-  //   fetch("https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US", {
-  //   headers:
-  //     accept: "application/json"
-  //     'X-API-KEY: KvbyoQxWLt7KO5AkAcGZr725Nyyy5NEH8fjMLCgk',
-  //  method: "GET"
-  // })
-  // .then(
-  //   (response) => console.log(reponse.data);
-  //   (err) => console.error(err.response.data)
-  // )
-  // .catch((error) => console.error(error.message.data))
-  // }
-
-
-  // const filteredData = data.filter((el) => {
-  //   if (input === '') {
-  //     return el
-  //   } else {
-  //     return el.text.toLowerCase().includes(input)
-  //   }
-  // })
 
   const stocksMap = stocks.map((stock) => {
   if (stock.name.toLowerCase().includes(query)) {

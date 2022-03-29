@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
+// import 'dotenv/config'
 
 const App = () => {
 
@@ -36,6 +37,8 @@ const App = () => {
   p: 4,
 };
 
+  const API_KEY = process.env.REACT_APP_YAHOO_KEY;
+
   const getStocks = () => {
     axios.get('https://salty-oasis-93120.herokuapp.com/api/stocks')
     .then(
@@ -48,7 +51,6 @@ const App = () => {
   const handleCreate = (newStock) => {
     axios.post('https://salty-oasis-93120.herokuapp.com/api/stocks', newStock)
     .then((response)=>{
-      console.log(response)
       getStocks()
     })
   }
@@ -75,10 +77,25 @@ const App = () => {
   const handleSearch = (e) => {
     let lowerCaseSearch = e.target.value.toLowerCase()
     setQuery(lowerCaseSearch)
-    console.log(query)
   }
 
 
+const getIndexData = () => {
+  let options = {
+  method: 'GET',
+  url: 'https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US',
+  params: {modules: 'defaultKeyStatistics'},
+  headers: {
+    'x-api-key': API_KEY
+  }
+}
+
+  axios.request(options).then(function (response) {
+  	console.log(response.data.marketSummaryResponse.result[0].regularMarketPrice);
+  }).catch(function (error) {
+  	console.error(error);
+  });
+}
 
   const stocksMap = stocks.map((stock) => {
   if (stock.name.toLowerCase().includes(query)) {
@@ -86,37 +103,37 @@ const App = () => {
   return(
   <div className="stocks" key={stock.id}>
   <div>
-<Button onClick={handleOpen}>{stock.headline}</Button>
-<Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style}>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
-      {stock.headline}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {stock.name}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {stock.ticker}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {stock.price}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {stock.industry}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {stock.opinion}
-    </Typography>
-  </Box>
-</Modal>
-</div>
-          <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-          <button onClick={handleDelete} value={stock.id}>X</button>
+    <Button onClick={handleOpen}>{stock.headline}</Button>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      >
+    <Box sx={style}>
+      <Typography id="modal-modal-title" variant="h6" component="h2">
+        {stock.headline}
+        </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {stock.name}
+      </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {stock.ticker}
+      </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {stock.price}
+      </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {stock.industry}
+      </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {stock.opinion}
+      </Typography>
+    </Box>
+    </Modal>
+    </div>
+      <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
+      <button onClick={handleDelete} value={stock.id}>X</button>
     </div>
   )}
 })

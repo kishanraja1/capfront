@@ -1,3 +1,5 @@
+
+//////////////// COMPONENTS AND REACT //////////////////////
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react'
@@ -5,15 +7,23 @@ import axios from 'axios';
 import Add from './components/Add'
 import Edit from './components/Edit'
 import Head from './components/Head'
+import News from './components/News'
 
-
-
+/////////////// MUI ///////////////////
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
+
+/////////////// REACT ROUTER //////////////////////////
+import { render } from "react-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 
 const App = () => {
 
@@ -119,7 +129,7 @@ const App = () => {
   <div className="postContainer">
     <Button onClick={handleOpen}>{stock.headline}</Button>
     <p>Company: {stock.name}</p>
-    <p>Company: {stock.opinion}</p>
+    <p>Opinion: {stock.opinion}</p>
     <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
     <button onClick={handleDelete} value={stock.id}>Delete</button>
   </div>
@@ -178,10 +188,16 @@ const App = () => {
 
   return (
     <>
+    <Router>
     <Head />
+    <Switch>
+    <Route path = '/news'>
+    <News />
+    </Route>
+    <Route path = '/'>
     <div className = "container">
     <section id="indexInfo">
-    <h2>What's Going On In The Market</h2>
+    <h2>Market Data</h2>
 
     </section>
     <section id="posts">
@@ -200,6 +216,9 @@ const App = () => {
     </div>
     </section>
     </div>
+    </Route>
+    </Switch>
+    </Router>
     </>
   )
 }

@@ -6,9 +6,14 @@ section {
   margin: 1rem;
 }
 
-img {
+#bullImg {
   height: 3rem;
   width: 3rem;
+}
+
+img {
+  height: 16rem;
+  width: 16rem;
 }
 
 .stockBox {

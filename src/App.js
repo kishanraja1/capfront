@@ -8,6 +8,9 @@ import Add from './components/Add'
 import Edit from './components/Edit'
 import Head from './components/Head'
 import News from './components/News'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+
 
 /////////////// MUI ///////////////////
 import * as React from 'react';
@@ -131,7 +134,7 @@ const App = () => {
     <p>Company: {stock.name}</p>
     <p>Opinion: {stock.opinion}</p>
     <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-    <button onClick={handleDelete} value={stock.id}>Delete</button>
+    <button onClick={handleDelete} value={stock.id}>Remove</button>
   </div>
     <Modal
       open={open}
@@ -189,7 +192,7 @@ const App = () => {
   return (
     <>
     <Router>
-    <Head />
+    <Head handleSearch={handleSearch}/>
     <Switch>
     <Route path = '/news'>
     <News />

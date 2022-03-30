@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+section {
+  margin: 1rem;
+}
+
+img {
+  height: 3rem;
+  width: 3rem;
+}
+
 .stockBox {
   position: absolute;
   top: 50%;
@@ -16,4 +25,20 @@
 .postContainer {
   border: 2px solid blue;
   margin: 1px;
+}
+
+.container {
+  display: flex;
+}
+
+.searchAndAdd {
+  display: flex;
+}
+
+#indexInfo {
+  flex: 1 1 0;
+}
+
+#posts {
+  flex: 3 1 0
 }

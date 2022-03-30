@@ -41,7 +41,7 @@ const Add = (props) => {
   return(
     <>
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} id='addButton'>
         Add A Stock Opinion
       </Button>
       <Dialog open={open} onClose={handleClose}>

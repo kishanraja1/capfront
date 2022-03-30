@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Add from './components/Add'
 import Edit from './components/Edit'
+import Head from './components/Head'
+
+
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -106,17 +109,19 @@ const App = () => {
     setQuery(lowerCaseSearch)
   }
 
+
+////////////// Map My API /////////////////////////
   const stocksMap = stocks.map((stock) => {
   if (stock.name.toLowerCase().includes(query)) {
-
   return(
   <div className="stocks" key={stock.id}>
   <div>
   <div className="postContainer">
     <Button onClick={handleOpen}>{stock.headline}</Button>
-    <p>{stock.name}</p>
+    <p>Company: {stock.name}</p>
+    <p>Company: {stock.opinion}</p>
     <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-    <button onClick={handleDelete} value={stock.id}>X</button>
+    <button onClick={handleDelete} value={stock.id}>Delete</button>
   </div>
     <Modal
       open={open}
@@ -143,9 +148,7 @@ const App = () => {
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         {stock.opinion}
       </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {getStockData(stock.ticker)}
-      </Typography>
+
     </Box>
     </Modal>
     </div>
@@ -153,25 +156,36 @@ const App = () => {
   )}
 })
 
+// <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+//   {getStockData(stock.ticker)}
+// </Typography>
+
   useEffect(() => {
     getStocks();
-    getIndexData()
+    // getIndexData()
   },[])
+
+  // <div className = "stockIndex">
+  //   {index.map((i) => {
+  //     return(
+  //       <div className="singleIndex" key={i.index}>
+  //         <h4>{i.shortName}: {i.regularMarketPrice.fmt}</h4>
+  //       </div>
+  //     )
+  //   })}
+  // </div>
 
 
   return (
     <>
-    <h1>SeekingBeta</h1>
-    <div className = "stockIndex">
-      {index.map((i) => {
-        return(
-          <div className="singleIndex" key={i.index}>
-            <h4>{i.shortName}: {i.regularMarketPrice.fmt}</h4>
-          </div>
-        )
-      })}
-    </div>
-    <h2>Stock Market Data</h2>
+    <Head />
+    <div className = "container">
+    <section id="indexInfo">
+    <h2>What's Going On In The Market</h2>
+
+    </section>
+    <section id="posts">
+    <div className = 'searchAndAdd'>
     <TextField
     id='outlined-basic'
     variant='outlined'
@@ -180,8 +194,11 @@ const App = () => {
     onChange = {handleSearch}
     />
     <Add handleCreate={handleCreate}/>
+    </div>
     <div className='stockContainer'>
       {stocksMap}
+    </div>
+    </section>
     </div>
     </>
   )

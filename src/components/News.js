@@ -25,17 +25,17 @@ const News = (props) => {
   }
 
   useEffect(() => {
-    getNews()
+    // getNews()
   })
 
 
   return (
     <>
     <h1>Today's News</h1>
-    <div>
+    <div className = 'newsDiv'>
       {news.map((article) => {
         return (
-          <div>
+          <div key={article.url}>
             <img src={article.urlToImage}/>
             <h3>{article.title}</h3>
             <p>{article.description}</p>

@@ -48,6 +48,10 @@ img {
   color: red;
 }
 
+.newsDiv {
+  margin: 1rem;
+}
+
 #indexInfo {
   flex: 1 1 0;
 }

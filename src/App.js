@@ -32,6 +32,7 @@ const App = () => {
 
   let [stocks, setStocks] = useState([])
   let [index, setIndex] = useState([])
+  let [stockPrice, setStockPrice] = useState('')
   const [query, setQuery] = useState('')
 
 ///// MUI for modals
@@ -97,23 +98,23 @@ const App = () => {
   //   });
   // }
   //
-  // const getStockData= (symbol) => {
-  //   let options = {
-  //   method: 'GET',
-  //   url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
-  //   params: {modules: 'defaultKeyStatistics'},
-  //   headers: {
-  //     'x-api-key': API_KEY
-  //   }
-  // }
-  //
-  // axios.request(options).then(function (response) {
-  //   console.log(response.data.quoteResponse.result.displayName)
-  // }).catch(function (error) {
-  //   console.error(error);
-  // });
-  //
-  // }
+  const getStockData= (symbol) => {
+    let options = {
+    method: 'GET',
+    url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
+    params: {modules: 'defaultKeyStatistics'},
+    headers: {
+      'x-api-key': API_KEY
+    }
+  }
+
+  axios.request(options).then(function (response) {
+    setStockPrice(response.data.quoteResponse.result[0].regularMarketPrice)
+  }).catch(function (error) {
+    console.error(error);
+  });
+
+  }
 
 
 ///////////// SEARCH BAR ///////////////////////
@@ -147,18 +148,16 @@ const App = () => {
         {stock.headline}
         </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.name}
+        Company: {stock.name} ({stock.ticker})
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.ticker}
+        Price: {stock.price}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.price}
+        Industry: {stock.industry}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.industry}
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        Opinion: <br/>
         {stock.opinion}
       </Typography>
     </Box>
@@ -169,8 +168,9 @@ const App = () => {
 })
 
 // <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//   {getStockData(stock.ticker)}
+//   Price: {getStockData(stock.ticker)} : {stockPrice}
 // </Typography>
+
 
   useEffect(() => {
     getStocks();
@@ -203,16 +203,7 @@ const App = () => {
 
     </section>
     <section id="posts">
-    <div className = 'searchAndAdd'>
-    <TextField
-    id='outlined-basic'
-    variant='outlined'
-    fullWidth
-    label='Search'
-    onChange = {handleSearch}
-    />
     <Add handleCreate={handleCreate}/>
-    </div>
     <div className='stockContainer'>
       {stocksMap}
     </div>
@@ -226,3 +217,12 @@ const App = () => {
 }
 
 export default App;
+
+
+// <TextField
+// id='outlined-basic'
+// variant='outlined'
+// fullWidth
+// label='Search'
+// onChange = {handleSearch}
+// />

@@ -35,10 +35,13 @@ const Add = (props) => {
     console.log(stock);
   }
 
+  //user inputs a ticker symbol on add form
+  //we take ticker and find stock price in yahoo finance api
+  //post it in the modal that opens for each stock
   return(
     <>
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} id='addButton'>
         Add A Stock Opinion
       </Button>
       <Dialog open={open} onClose={handleClose}>

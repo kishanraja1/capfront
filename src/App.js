@@ -1,35 +1,48 @@
+
+//////////////// COMPONENTS AND REACT //////////////////////
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Add from './components/Add'
 import Edit from './components/Edit'
+import Head from './components/Head'
+import News from './components/News'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
+
+/////////////// MUI ///////////////////
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField'
+
+/////////////// REACT ROUTER //////////////////////////
+import { render } from "react-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 
 const App = () => {
 
   let [stocks, setStocks] = useState([])
-  const [open, setOpen] = React.useState(false);
+  let [index, setIndex] = useState([])
+  let [stockPrice, setStockPrice] = useState('')
+  const [query, setQuery] = useState('')
 
+///// MUI for modals
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+  const API_KEY = process.env.REACT_APP_YAHOO_KEY;
+
+  ////////////////// CRUD FUNCTIONS ??????????????????????
 
   const getStocks = () => {
     axios.get('https://salty-oasis-93120.herokuapp.com/api/stocks')
@@ -43,7 +56,6 @@ const App = () => {
   const handleCreate = (newStock) => {
     axios.post('https://salty-oasis-93120.herokuapp.com/api/stocks', newStock)
     .then((response)=>{
-      console.log(response)
       getStocks()
     })
   }
@@ -67,61 +79,150 @@ const App = () => {
       })
   }
 
+////////////////// YAHOO API ////////////////////////
+// https://www.yahoofinanceapi.com/tutorial got guidance on using the api
+  // const getIndexData = () => {
+  //   let options = {
+  //   method: 'GET',
+  //   url: 'https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US',
+  //   params: {modules: 'defaultKeyStatistics'},
+  //   headers: {
+  //     'x-api-key': API_KEY
+  //   }
+  // }
+  //
+  //   axios.request(options).then(function (response) {
+  //     setIndex(response.data.marketSummaryResponse.result)
+  //   }).catch(function (error) {
+  //   	console.error(error);
+  //   });
+  // }
+  //
+  const getStockData= (symbol) => {
+    let options = {
+    method: 'GET',
+    url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
+    params: {modules: 'defaultKeyStatistics'},
+    headers: {
+      'x-api-key': API_KEY
+    }
+  }
 
+  axios.request(options).then(function (response) {
+    setStockPrice(response.data.quoteResponse.result[0].regularMarketPrice)
+  }).catch(function (error) {
+    console.error(error);
+  });
+
+  }
+
+
+///////////// SEARCH BAR ///////////////////////
+  const handleSearch = (e) => {
+    let lowerCaseSearch = e.target.value.toLowerCase()
+    setQuery(lowerCaseSearch)
+  }
+
+
+////////////// Map My API /////////////////////////
   const stocksMap = stocks.map((stock) => {
-    return(
-    <div className="stocks" key={stock.id}>
-    <div>
-  <Button onClick={handleOpen}>{stock.headline}</Button>
-  <Modal
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={style}>
+  if (stock.name.toLowerCase().includes(query)) {
+  return(
+  <div className="stocks" key={stock.id}>
+  <div>
+  <div className="postContainer">
+    <Button onClick={handleOpen}>{stock.headline}</Button>
+    <p>Company: {stock.name}</p>
+    <p>Opinion: {stock.opinion}</p>
+    <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
+    <button onClick={handleDelete} value={stock.id}>Remove</button>
+  </div>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      >
+    <Box className="stockBox">
       <Typography id="modal-modal-title" variant="h6" component="h2">
         {stock.headline}
+        </Typography>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        Company: {stock.name} ({stock.ticker})
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.name}
+        Price: {stock.price}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.ticker}
+        Industry: {stock.industry}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.price}
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        {stock.industry}
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        Opinion: <br/>
         {stock.opinion}
       </Typography>
     </Box>
-  </Modal>
-</div>
-            <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-            <button onClick={handleDelete} value={stock.id}>X</button>
-      </div>
-    )
-  })
+    </Modal>
+    </div>
+    </div>
+  )}
+})
+
+// <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+//   Price: {getStockData(stock.ticker)} : {stockPrice}
+// </Typography>
 
 
   useEffect(() => {
-    getStocks()
+    getStocks();
+    // getIndexData()
   },[])
+
+  // <div className = "stockIndex">
+  //   {index.map((i) => {
+  //     return(
+  //       <div className="singleIndex" key={i.index}>
+  //         {i.regularMarketChange.raw > 0 ? <h5 className='posChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5> : <h5 className='negChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5>}
+  //       </div>
+  //     )
+  //   })}
+  // </div>
 
 
   return (
     <>
-    <h1>SeekingBeta</h1>
+    <Router>
+    <Head handleSearch={handleSearch}/>
+    <Switch>
+    <Route path = '/news'>
+    <News handleSearch={handleSearch} query={query}/>
+    </Route>
+    <Route path = '/'>
+    <div className = "container">
+    <section id="indexInfo">
+    <h2>Market Data</h2>
+
+    </section>
+    <section id="posts">
     <Add handleCreate={handleCreate}/>
     <div className='stockContainer'>
       {stocksMap}
     </div>
+    </section>
+    </div>
+    </Route>
+    </Switch>
+    </Router>
     </>
   )
 }
 
 export default App;
+
+
+// <TextField
+// id='outlined-basic'
+// variant='outlined'
+// fullWidth
+// label='Search'
+// onChange = {handleSearch}
+// />

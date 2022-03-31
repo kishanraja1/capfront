@@ -11,18 +11,11 @@ import Drawer from "@mui/material/Drawer";
 import CloseIcon from "@mui/icons-material/Close";
 import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
-import Button from "@mui/material/Button";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import AlbumIcon from '@mui/icons-material/Album';
-import PersonIcon from '@mui/icons-material/Person';
-import HomeIcon from '@mui/icons-material/Home';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 
-
-import bull from '../components/images/bull.jpeg'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -108,15 +101,15 @@ const Head = (props) => {
                 </IconButton>
                 <Divider sx={{mb: 2}} />
                 <Box sx={{mb: 2}}>
-                  <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/news"}}>
-                    <ListItemText primary="News" />
-                  </ListItemButton>
+                <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/home"}}>
+                  <ListItemText primary="Home Page" />
+                </ListItemButton>
 
-                  <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/home"}}>
-                    <ListItemText primary="Home Page" />
-                  </ListItemButton>
-                </Box>
-                <Box sx={{
+                <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/news"}}>
+                  <ListItemText primary="News" />
+                </ListItemButton>
+              </Box>
+            <Box sx={{
                   display: "flex",
                   justifyContent:"center",
                   position: "absolute",
@@ -153,39 +146,6 @@ const Head = (props) => {
 }
 
 export default Head
-
-// <Box sx={{ flexGrow: 1 }}>
-//   <AppBar position="static">
-//     <Toolbar>
-//       <IconButton
-//         size="large"
-//         edge="start"
-//         color="inherit"
-//         aria-label="open drawer"
-//         sx={{ mr: 2 }}
-//       >
-//         <MenuIcon />
-//       </IconButton>
-//       <Typography
-//         variant="h6"
-//         noWrap
-//         component="div"
-//         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-//       >
-//         <h1>SeekingBeta</h1>
-//       </Typography>
-//       <Search onChange={props.handleSearch}>
-//         <SearchIconWrapper>
-//           <SearchIcon />
-//         </SearchIconWrapper>
-//         <StyledInputBase
-//           placeholder="Search…"
-//           inputProps={{ 'aria-label': 'search' }}
-//         />
-//       </Search>
-//     </Toolbar>
-//   </AppBar>
-// </Box>
 
 
 // <div>

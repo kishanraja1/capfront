@@ -80,40 +80,40 @@ const App = () => {
 
 ////////////////// YAHOO API ////////////////////////
 // https://www.yahoofinanceapi.com/tutorial got guidance on using the api
-  const getIndexData = () => {
-    let options = {
-    method: 'GET',
-    url: 'https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US',
-    params: {modules: 'defaultKeyStatistics'},
-    headers: {
-      'x-api-key': API_KEY
-    }
-  }
-
-    axios.request(options).then(function (response) {
-      setIndex(response.data.marketSummaryResponse.result)
-    }).catch(function (error) {
-    	console.error(error);
-    });
-  }
-
-  const getStockData= (symbol) => {
-    let options = {
-    method: 'GET',
-    url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
-    params: {modules: 'defaultKeyStatistics'},
-    headers: {
-      'x-api-key': API_KEY
-    }
-  }
-
-  axios.request(options).then(function (response) {
-    console.log(response.data.quoteResponse.result.displayName)
-  }).catch(function (error) {
-    console.error(error);
-  });
-
-  }
+  // const getIndexData = () => {
+  //   let options = {
+  //   method: 'GET',
+  //   url: 'https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US',
+  //   params: {modules: 'defaultKeyStatistics'},
+  //   headers: {
+  //     'x-api-key': API_KEY
+  //   }
+  // }
+  //
+  //   axios.request(options).then(function (response) {
+  //     setIndex(response.data.marketSummaryResponse.result)
+  //   }).catch(function (error) {
+  //   	console.error(error);
+  //   });
+  // }
+  //
+  // const getStockData= (symbol) => {
+  //   let options = {
+  //   method: 'GET',
+  //   url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
+  //   params: {modules: 'defaultKeyStatistics'},
+  //   headers: {
+  //     'x-api-key': API_KEY
+  //   }
+  // }
+  //
+  // axios.request(options).then(function (response) {
+  //   console.log(response.data.quoteResponse.result.displayName)
+  // }).catch(function (error) {
+  //   console.error(error);
+  // });
+  //
+  // }
 
 
 ///////////// SEARCH BAR ///////////////////////
@@ -161,7 +161,6 @@ const App = () => {
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         {stock.opinion}
       </Typography>
-
     </Box>
     </Modal>
     </div>
@@ -182,7 +181,7 @@ const App = () => {
   //   {index.map((i) => {
   //     return(
   //       <div className="singleIndex" key={i.index}>
-  //         <h4>{i.shortName}: {i.regularMarketPrice.fmt}</h4>
+  //         {i.regularMarketChange.raw > 0 ? <h5 className='posChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5> : <h5 className='negChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5>}
   //       </div>
   //     )
   //   })}
@@ -195,7 +194,7 @@ const App = () => {
     <Head handleSearch={handleSearch}/>
     <Switch>
     <Route path = '/news'>
-    <News />
+    <News handleSearch={handleSearch} query={query}/>
     </Route>
     <Route path = '/'>
     <div className = "container">

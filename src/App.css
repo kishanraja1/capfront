@@ -40,6 +40,14 @@ img {
   display: flex;
 }
 
+.posChange {
+  color: green;
+}
+
+.negChange {
+  color: red;
+}
+
 #indexInfo {
   flex: 1 1 0;
 }

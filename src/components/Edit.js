@@ -40,7 +40,7 @@ const handleClose = () => setOpen(false);
   return (
     <>
     <div className="edit-album">
-  <EditIcon onClick={handleOpen}/>
+  <EditIcon className='endButton' onClick={handleOpen}/>
   <Dialog
     open={open}
     onClose={handleClose}
@@ -49,7 +49,7 @@ const handleClose = () => setOpen(false);
     <DialogContent>
       <Box component="form" onSubmit={(event) => {handleSubmit(event, stock)}}>
         <TextField
-          name="headline" value={stock.headline}
+          fullWidth name="headline" value={stock.headline}
           onChange={handleChange}
           variant="outlined" label = "Headline"
           sx={{ m: 1 , color:'#19196E'}}/>
@@ -74,7 +74,7 @@ const handleClose = () => setOpen(false);
           variant="outlined" label="Industry"
           sx={{ m: 1, color:'#19196E'}}/>
         <TextField
-          name="opinion" value={stock.opinion}
+          fullWidth name="opinion" value={stock.opinion}
           onChange={handleChange}
           variant="outlined" label="Opinion"
           sx={{ m: 1, color:'#19196E'}}/><br/>

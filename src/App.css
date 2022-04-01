@@ -61,6 +61,10 @@ img {
   justify-content: flex-end;
 }
 
+.endButton {
+  cursor: pointer;
+}
+
 #indexInfo {
   flex: 1 1 0;
 }

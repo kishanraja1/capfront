@@ -128,7 +128,7 @@ const Head = (props) => {
             <SearchIcon />
               </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Search By Company"
+                placeholder="Search"
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>

@@ -136,7 +136,7 @@ const App = () => {
 
 ////////////// Map My API /////////////////////////
   const stocksMap = stocks.map((stock) => {
-  if (stock.name.toLowerCase().includes(query)) {
+  if (stock.headline.toLowerCase().includes(query) || stock.ticker.toLowerCase().includes(query) || stock.industry.toLowerCase().includes(query)) {
   return(
   <div className="stocks" key={stock.id}>
   <div>
@@ -148,7 +148,7 @@ const App = () => {
       <p>Opinion: {stock.opinion}</p>
       <div className='editAndDelete'>
       <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-      <DeleteIcon aria-label="delete" onClick={() => {handleDelete2(stock)}}/>
+      <DeleteIcon className='endButton' aria-label="delete" onClick={() => {handleDelete2(stock)}}/>
       </div>
     </div>
   </div>

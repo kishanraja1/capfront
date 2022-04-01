@@ -77,7 +77,7 @@ const handleClose = () => setOpen(false);
           name="opinion" value={stock.opinion}
           onChange={handleChange}
           variant="outlined" label="Opinion"
-          sx={{ m: 1, color:'#19196E'}}/>
+          sx={{ m: 1, color:'#19196E'}}/><br/>
         <Button>
           <input type="submit"/>
         </Button>
@@ -92,58 +92,3 @@ const handleClose = () => setOpen(false);
 }
 
 export default Edit
-
-
-// <details>
-//   <summary>Edit Stock</summary>
-//   <form onSubmit={handleSubmit}>
-//   <label htmlFor="headline">Headline: </label>
-//   <input
-//     type="text"
-//     name="headline"
-//     value={stock.headline}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="name">Name: </label>
-//   <input
-//     type="text"
-//     name="name"
-//     value={stock.name}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="ticker">Ticker Symbol: </label>
-//   <input
-//     type="text"
-//     name="ticker"
-//     value={stock.ticker}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="price">Price: </label>
-//   <input
-//     type="number"
-//     name="price"
-//     value={stock.price}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="industry">Industry: </label>
-//   <input
-//     type="text"
-//     name="industry"
-//     value={stock.industry}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="opinion">Opinion: </label>
-//   <input
-//     type="text"
-//     name="opinion"
-//     value={stock.opinion}
-//     onChange={handleChange}
-//   />
-//   <input type="submit" />
-//   </form>
-// </details>

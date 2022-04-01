@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import '../App.css';
 
 // MUI Components
 import Box from '@mui/material/Box';
@@ -39,8 +40,8 @@ const handleClose = () => setOpen(false);
 
   return (
     <>
-    <div className="edit-album">
-  <EditIcon className='endButton' onClick={handleOpen}/>
+    <div>
+  <EditIcon onClick={handleOpen}/>
   <Dialog
     open={open}
     onClose={handleClose}

@@ -54,6 +54,8 @@ img {
 
 .indexInfo {
   border: 2px solid blue;
+  height: 40rem;
+  overflow: scroll;
 }
 
 .editAndDelete {
@@ -63,6 +65,10 @@ img {
 
 .endButton {
   cursor: pointer;
+}
+
+.newsdiv {
+  margin: 1rem;
 }
 
 #indexInfo {

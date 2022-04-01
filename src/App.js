@@ -143,7 +143,7 @@ const App = () => {
     <div className="postContainer">
       <h1>{stock.headline}</h1>
       <p>Company: {stock.name} ({stock.ticker})</p>
-      <p>Price: {stock.price}</p>
+      <p>Price: ${stock.price}</p>
       <p>Industry: {stock.industry}</p>
       <p>Opinion: {stock.opinion}</p>
       <div className='editAndDelete'>

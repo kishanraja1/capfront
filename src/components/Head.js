@@ -70,7 +70,7 @@ const Head = (props) => {
   setState(open);
 };
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box  sx={{ flexGrow: 1 }}>
           <AppBar position="static" color="default" elevation={0} className="TopNav" >
             <Container>
             <Toolbar>
@@ -91,11 +91,7 @@ const Head = (props) => {
               onClose={toggleDrawer(false)}
               onOpen={toggleDrawer(true)}
             >
-              <Box sx={{
-                p: 2,
-                height: 1,
-                backgroundColor: "inherit",
-              }}>
+              <Box >
                 <IconButton sx={{mb: 2}}>
                   <CloseIcon onClick={toggleDrawer(false)} />
                 </IconButton>
@@ -122,7 +118,6 @@ const Head = (props) => {
             </Drawer>
             <Typography
               variant="h6"
-              noWrap
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               >
@@ -133,7 +128,7 @@ const Head = (props) => {
             <SearchIcon />
               </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Search…"
+                placeholder="Search By Company"
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
@@ -146,9 +141,3 @@ const Head = (props) => {
 }
 
 export default Head
-
-
-// <div>
-// <h1>SeekingBeta <img src={bull} id='bullImg'/></h1>
-// <p>Invest More. Envision More.</p>
-// </div>

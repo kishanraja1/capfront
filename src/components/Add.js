@@ -32,12 +32,8 @@ const Add = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     props.handleCreate(stock)
-    console.log(stock);
   }
 
-  //user inputs a ticker symbol on add form
-  //we take ticker and find stock price in yahoo finance api
-  //post it in the modal that opens for each stock
   return(
     <>
     <div>
@@ -129,26 +125,3 @@ const Add = (props) => {
 }
 
 export default Add
-
-
-// <form onSubmit={handleSubmit}>
-//   <label htmlFor="headline">Headline: </label>
-//   <input type="text" name="headline" onChange={handleChange}/>
-//   <br />
-//   <label htmlFor="name">Company: </label>
-//   <input type="text" name="name" onChange={handleChange}/>
-//   <br />
-//   <label htmlFor="ticker">Ticker Symbol: </label>
-//   <input type="text" name="ticker" onChange={handleChange}/>
-//   <br />
-//   <label htmlFor="price">Stock Price: </label>
-//   <input type="number" step="0.01" name="price" onChange={handleChange}/>
-//   <br />
-//   <label htmlFor="industry">Industry: </label>
-//   <input type="text" name="industry" onChange={handleChange}/>
-//   <br />
-//   <label htmlFor="opinion">Your Opinion: </label>
-//   <input type="text" name="opinion" onChange={handleChange}/>
-//   <br />
-//   <input type="submit"/>
-// </form>

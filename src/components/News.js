@@ -25,7 +25,7 @@ const News = (props) => {
   }
 
   useEffect(() => {
-    // getNews()
+    getNews()
   })
 
 

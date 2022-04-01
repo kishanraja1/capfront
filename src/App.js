@@ -85,7 +85,7 @@ const App = () => {
     let options = {
     method: 'GET',
     url: 'https://yfapi.net/v6/finance/quote/marketSummary?lang=en&region=US',
-    params: {modules: 'defaultKeyStatistics'},
+    params: {modules: 'defaultKeyStatistics,assetProfile'},
     headers: {
       'x-api-key': API_KEY
     }

@@ -11,6 +11,7 @@ import News from './components/News'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { AiFillDelete } from "react-icons/ai"
+import {FaChevronCircleUp,FaChevronCircleDown} from 'react-icons/fa'
 
 
 /////////////// MUI ///////////////////
@@ -161,7 +162,7 @@ const App = () => {
 
   useEffect(() => {
     getStocks();
-    // getIndexData()
+    getIndexData()
   },[])
 
 
@@ -182,6 +183,8 @@ const App = () => {
         return(
           <div className="singleIndex" key={i.index}>
             {i.regularMarketChange.raw > 0 ? <h5 className='posChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5> : <h5 className='negChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5>}
+
+            {i.regularMarketChange.raw > 0 ? <h5 className='posChange'> <FaChevronCircleUp className='posChange'/>{i.regularMarketChange.fmt}</h5> : <h5 className='negChange'> <FaChevronCircleDown className='negChange'/> {i.regularMarketChange.fmt}</h5>}
           </div>
         )
       })}

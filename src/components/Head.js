@@ -97,11 +97,11 @@ const Head = (props) => {
                 </IconButton>
                 <Divider sx={{mb: 2}} />
                 <Box sx={{mb: 2}}>
-                <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/home"}}>
+                <ListItemButton onClick={()=>{window.location.href="https://fierce-retreat-92206.herokuapp.com/home"}}>
                   <ListItemText primary="Home Page" />
                 </ListItemButton>
 
-                <ListItemButton onClick={()=>{window.location.href="http://localhost:3000/news"}}>
+                <ListItemButton onClick={()=>{window.location.href="https://fierce-retreat-92206.herokuapp.com/news"}}>
                   <ListItemText primary="News" />
                 </ListItemButton>
               </Box>
@@ -128,7 +128,7 @@ const Head = (props) => {
             <SearchIcon />
               </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Search By Company"
+                placeholder="Search"
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>

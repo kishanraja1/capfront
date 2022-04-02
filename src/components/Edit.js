@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import '../App.css';
 
 // MUI Components
 import Box from '@mui/material/Box';
@@ -39,7 +40,7 @@ const handleClose = () => setOpen(false);
 
   return (
     <>
-    <div className="edit-album">
+    <div>
   <EditIcon onClick={handleOpen}/>
   <Dialog
     open={open}
@@ -49,7 +50,7 @@ const handleClose = () => setOpen(false);
     <DialogContent>
       <Box component="form" onSubmit={(event) => {handleSubmit(event, stock)}}>
         <TextField
-          name="headline" value={stock.headline}
+          fullWidth name="headline" value={stock.headline}
           onChange={handleChange}
           variant="outlined" label = "Headline"
           sx={{ m: 1 , color:'#19196E'}}/>
@@ -74,10 +75,10 @@ const handleClose = () => setOpen(false);
           variant="outlined" label="Industry"
           sx={{ m: 1, color:'#19196E'}}/>
         <TextField
-          name="opinion" value={stock.opinion}
+          fullWidth name="opinion" value={stock.opinion}
           onChange={handleChange}
           variant="outlined" label="Opinion"
-          sx={{ m: 1, color:'#19196E'}}/>
+          sx={{ m: 1, color:'#19196E'}}/><br/>
         <Button>
           <input type="submit"/>
         </Button>
@@ -92,58 +93,3 @@ const handleClose = () => setOpen(false);
 }
 
 export default Edit
-
-
-// <details>
-//   <summary>Edit Stock</summary>
-//   <form onSubmit={handleSubmit}>
-//   <label htmlFor="headline">Headline: </label>
-//   <input
-//     type="text"
-//     name="headline"
-//     value={stock.headline}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="name">Name: </label>
-//   <input
-//     type="text"
-//     name="name"
-//     value={stock.name}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="ticker">Ticker Symbol: </label>
-//   <input
-//     type="text"
-//     name="ticker"
-//     value={stock.ticker}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="price">Price: </label>
-//   <input
-//     type="number"
-//     name="price"
-//     value={stock.price}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="industry">Industry: </label>
-//   <input
-//     type="text"
-//     name="industry"
-//     value={stock.industry}
-//     onChange={handleChange}
-//   />
-//   <br />
-//   <label htmlFor="opinion">Opinion: </label>
-//   <input
-//     type="text"
-//     name="opinion"
-//     value={stock.opinion}
-//     onChange={handleChange}
-//   />
-//   <input type="submit" />
-//   </form>
-// </details>

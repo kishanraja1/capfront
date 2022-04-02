@@ -10,6 +10,8 @@ import Head from './components/Head'
 import News from './components/News'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { AiFillDelete } from "react-icons/ai"
+import {FaChevronCircleUp,FaChevronCircleDown} from 'react-icons/fa'
 
 
 /////////////// MUI ///////////////////
@@ -69,6 +71,14 @@ const App = () => {
     })
   }
 
+  const handleDelete2 = (deletedStock) => {
+    axios
+    .delete('https://salty-oasis-93120.herokuapp.com/api/stocks/' + deletedStock.id)
+    .then((response) => {
+      getStocks()
+    })
+  }
+
   const handleUpdate = (editStock) => {
     console.log(editStock.id)
     console.log('https://salty-oasis-93120.herokuapp.com/api/stocks/' + editStock.id)
@@ -97,24 +107,25 @@ const App = () => {
     	console.error(error);
     });
   }
-  //
-  // const getStockData= (symbol) => {
-  //   let options = {
-  //   method: 'GET',
-  //   url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
-  //   params: {modules: 'defaultKeyStatistics'},
-  //   headers: {
-  //     'x-api-key': API_KEY
-  //   }
-  // }
-  //
-  // axios.request(options).then(function (response) {
-  //   setStockPrice(response.data.quoteResponse.result[0].regularMarketPrice)
-  // }).catch(function (error) {
-  //   console.error(error);
-  // });
-  //
-  // }
+
+
+  const getStockData= (symbol) => {
+    let options = {
+    method: 'GET',
+    url: 'https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=' + (symbol),
+    params: {modules: 'defaultKeyStatistics'},
+    headers: {
+      'x-api-key': API_KEY
+    }
+  }
+
+  axios.request(options).then(function (response) {
+    setStockPrice(response.data.quoteResponse.result[0].regularMarketPrice)
+  }).catch(function (error) {
+    console.error(error);
+  });
+
+  }
 
 
 ///////////// SEARCH BAR ///////////////////////
@@ -126,71 +137,33 @@ const App = () => {
 
 ////////////// Map My API /////////////////////////
   const stocksMap = stocks.map((stock) => {
-  if (stock.name.toLowerCase().includes(query)) {
+  if (stock.headline.toLowerCase().includes(query) || stock.ticker.toLowerCase().includes(query) || stock.industry.toLowerCase().includes(query)) {
   return(
   <div className="stocks" key={stock.id}>
   <div>
-  <div className="postContainer">
-    <Button onClick={handleOpen}>{stock.headline}</Button>
-    <h1>{stock.headline}</h1>
-    <p>Company: {stock.name} ({stock.ticker})</p>
-    <p>Price: {stock.price}</p>
-    <p>Industry: {stock.industry}</p>
-    <p>Opinion: {stock.opinion}</p>
-    <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
-    <DeleteIcon onClick={handleDelete} value={stock.id}/>
-    <button onClick={handleDelete} value={stock.id}>Remove</button>
+    <div className="postContainer">
+      <h1>{stock.headline}</h1>
+      <p>Company: {stock.name} ({stock.ticker})</p>
+      <p>Price: ${stock.price}</p>
+      <p>Industry: {stock.industry}</p>
+      <p>Opinion: {stock.opinion}</p>
+      <div className='editAndDelete'>
+      <Edit handleUpdate={handleUpdate} stock={stock} id={stock.id}/>
+      <DeleteIcon className='endButton' aria-label="delete" onClick={() => {handleDelete2(stock)}}/>
+      </div>
+    </div>
   </div>
-    </div>
-    </div>
+  </div>
   )}
 })
 
-// <Modal
-//   open={open}
-//   onClose={handleClose}
-//   aria-labelledby="modal-modal-title"
-//   aria-describedby="modal-modal-description"
-//   >
-// <Box className="stockBox">
-//   <Typography id="modal-modal-title" variant="h6" component="h2">
-//     {stock.headline}
-//     </Typography>
-//   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//     Company: {stock.name} ({stock.ticker})
-//   </Typography>
-//   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//     Price: {stock.price}
-//   </Typography>
-//   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//     Industry: {stock.industry}
-//   </Typography>
-//   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//     Opinion: <br/>
-//     {stock.opinion}
-//   </Typography>
-// </Box>
-// </Modal>
-
-// <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//   Price: {getStockData(stock.ticker)} : {stockPrice}
-// </Typography>
+    // <p>Price: {getStockData(stock.ticker)} : {stockPrice}</p>
 
 
   useEffect(() => {
     getStocks();
     getIndexData()
   },[])
-
-  // <div className = "stockIndex">
-  //   {index.map((i) => {
-  //     return(
-  //       <div className="singleIndex" key={i.index}>
-  //         {i.regularMarketChange.raw > 0 ? <h5 className='posChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5> : <h5 className='negChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5>}
-  //       </div>
-  //     )
-  //   })}
-  // </div>
 
 
   return (
@@ -203,13 +176,15 @@ const App = () => {
     </Route>
     <Route path = '/'>
     <div className = "container">
-    <section id="indexInfo">
+    <section className="indexInfo" id="indexInfo">
     <h2>Market Data</h2>
     <div className = "stockIndex">
       {index.map((i) => {
         return(
           <div className="singleIndex" key={i.index}>
             {i.regularMarketChange.raw > 0 ? <h5 className='posChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5> : <h5 className='negChange'>{i.shortName} : {i.regularMarketPrice.fmt}</h5>}
+
+            {i.regularMarketChange.raw > 0 ? <h5 className='posChange'> <FaChevronCircleUp className='posChange'/>{i.regularMarketChange.fmt}</h5> : <h5 className='negChange'> <FaChevronCircleDown className='negChange'/> {i.regularMarketChange.fmt}</h5>}
           </div>
         )
       })}
@@ -230,12 +205,3 @@ const App = () => {
 }
 
 export default App;
-
-
-// <TextField
-// id='outlined-basic'
-// variant='outlined'
-// fullWidth
-// label='Search'
-// onChange = {handleSearch}
-// />

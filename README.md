@@ -1,9 +1,9 @@
 # SeekingBeta
 
 This full-stack project is a site for users to perform market research in order to make investing decisions. Below are relevent links to this project:
-Front end live link: https://fierce-retreat-92206.herokuapp.com/
-Back end live link: https://salty-oasis-93120.herokuapp.com/api/stocks
-Back end repo: https://github.com/kishanraja1/capstone-back
+1. Front end live link: https://fierce-retreat-92206.herokuapp.com/
+2. Back end live link: https://salty-oasis-93120.herokuapp.com/api/stocks
+3. Back end repo: https://github.com/kishanraja1/capstone-back
 
 
 ## Technologies Used
